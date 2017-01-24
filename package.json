@@ -6,7 +6,7 @@
   "typings": "ng2-datepicker.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jkuri/ng2-datepicker.git"
+    "url": "git+https://github.com/BolshakovNO/ng2-datepicker.git"
   },
   "scripts": {
     "clean": "./scripts/clean.sh",
