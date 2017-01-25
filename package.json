@@ -1,6 +1,6 @@
 {
   "name": "ng2-customizing-datepicker",
-  "version": "1.4.13",
+  "version": "1.4.14",
   "description": "Angular2 Datepicker",
   "main": "ng2-datepicker.js",
   "typings": "ng2-datepicker.d.ts",
