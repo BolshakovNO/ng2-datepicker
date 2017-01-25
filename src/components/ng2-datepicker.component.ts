@@ -95,7 +95,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
 @Component({
   selector: 'ng2-datepicker',
   template: `
-  <!--<div class="datepicker-container u-is-unselectable">-->
+  <div class="datepicker-container u-is-unselectable">
     <!--<div class="datepicker-input-container">-->
       <!--<input type="text" class="datepicker-input" [(ngModel)]="date.formatted">-->
       <!--<div class="datepicker-input-icon" (click)="toggle()">-->
@@ -140,7 +140,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
         </div>
       </div>
     </div>
-  <!--</div>-->
+  </div>
   `,
   styles: [`
   .datepicker-container {
