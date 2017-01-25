@@ -38,7 +38,8 @@ export interface IDatePickerOptions {
   initialDate?: Date;
   firstWeekdaySunday?: boolean;
   format?: string;
-  weekDays?: WeekDays
+  weekDays?: WeekDays;
+  monthTitleFormat?: string;
 }
 
 export interface WeekDays {
@@ -61,6 +62,7 @@ export class DatePickerOptions {
   firstWeekdaySunday?: boolean;
   format?: string;
   weekDays?: WeekDays;
+  monthTitleFormat?: string;
 
   constructor(obj?: IDatePickerOptions) {
     this.autoApply = (obj && obj.autoApply === true) ? true : false;
@@ -72,6 +74,7 @@ export class DatePickerOptions {
     this.firstWeekdaySunday = obj && obj.firstWeekdaySunday ? obj.firstWeekdaySunday : false;
     this.format = obj && obj.format ? obj.format : 'YYYY-MM-DD';
     this.weekDays = obj && obj.weekDays ? obj.weekDays : {S: 'S', M: 'M', T: 'T', W: 'W', Th: 'T', F: 'F', Sa: 'S'};
+    this.monthTitleFormat = obj && obj.monthTitleFormat ? obj.monthTitleFormat : 'MMMM';
   }
 }
 
@@ -107,7 +110,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
         <div *ngIf="!yearPicker">
           <div class="datepicker-calendar-month-section">
             <i class="ion-ios-arrow-back" (click)="prevMonth()"></i>
-            <span class="month-title">{{ currentDate.format('MMMM') }}</span>
+            <span class="month-title">{{ currentDate.format(options.monthTitleFormat) }}</span>
             <i class="ion-ios-arrow-forward" (click)="nextMonth()"></i>
           </div>
           <div class="datepicker-calendar-day-names">
