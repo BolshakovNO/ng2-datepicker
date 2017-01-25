@@ -238,8 +238,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
       .datepicker-container .datepicker-calendar .datepicker-calendar-container .datepicker-calendar-day-names {
         width: 230px;
         margin-top: 10px;
-        display: inline-block;
-        border: 1px solid transparent; }
+        display: inline-block; }
         .datepicker-container .datepicker-calendar .datepicker-calendar-container .datepicker-calendar-day-names span {
           font-size: 12px;
           display: block;
