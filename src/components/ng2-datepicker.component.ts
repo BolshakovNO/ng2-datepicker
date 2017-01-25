@@ -38,6 +38,17 @@ export interface IDatePickerOptions {
   initialDate?: Date;
   firstWeekdaySunday?: boolean;
   format?: string;
+  weekDays?: WeekDays
+}
+
+export interface WeekDays {
+  S: string;
+  M: string;
+  T: string;
+  W: string;
+  Th: string;
+  F: string;
+  Sa: string;
 }
 
 export class DatePickerOptions {
@@ -49,6 +60,7 @@ export class DatePickerOptions {
   initialDate?: Date;
   firstWeekdaySunday?: boolean;
   format?: string;
+  weekDays?: WeekDays;
 
   constructor(obj?: IDatePickerOptions) {
     this.autoApply = (obj && obj.autoApply === true) ? true : false;
@@ -59,6 +71,7 @@ export class DatePickerOptions {
     this.initialDate = obj && obj.initialDate ? obj.initialDate : null;
     this.firstWeekdaySunday = obj && obj.firstWeekdaySunday ? obj.firstWeekdaySunday : false;
     this.format = obj && obj.format ? obj.format : 'YYYY-MM-DD';
+    this.weekDays = obj && obj.weekDays ? obj.weekDays : {S: 'S', M: 'M', T: 'T', W: 'W', Th: 'T', F: 'F', Sa: 'S'};
   }
 }
 
@@ -82,22 +95,14 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
 @Component({
   selector: 'ng2-datepicker',
   template: `
-  <div class="datepicker-container u-is-unselectable">
-    <div class="datepicker-input-container">
-      <input type="text" class="datepicker-input" [(ngModel)]="date.formatted">
-      <div class="datepicker-input-icon" (click)="toggle()">
-        <i class="ion-ios-calendar-outline"></i>
-      </div>
-    </div>
-    <div class="datepicker-calendar" *ngIf="opened">
-      <div class="datepicker-calendar-top">
-        <span class="year-title">{{ currentDate.format('YYYY') }}</span>
-        <button type="button" (click)="openYearPicker()" *ngIf="!yearPicker">
-          <i class="ion-arrow-right-c"></i>
-          Select Year
-        </button>
-        <i class="close ion-android-close" (click)="close()"></i>
-      </div>
+  <!--<div class="datepicker-container u-is-unselectable">-->
+    <!--<div class="datepicker-input-container">-->
+      <!--<input type="text" class="datepicker-input" [(ngModel)]="date.formatted">-->
+      <!--<div class="datepicker-input-icon" (click)="toggle()">-->
+        <!--<i class="ion-ios-calendar-outline"></i>-->
+      <!--</div>-->
+    <!--</div>-->
+    <div class="datepicker-calendar">
       <div class="datepicker-calendar-container">
         <div *ngIf="!yearPicker">
           <div class="datepicker-calendar-month-section">
@@ -106,13 +111,13 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
             <i class="ion-ios-arrow-forward" (click)="nextMonth()"></i>
           </div>
           <div class="datepicker-calendar-day-names">
-            <span>S</span>
-            <span>M</span>
-            <span>T</span>
-            <span>W</span>
-            <span>T</span>
-            <span>F</span>
-            <span>S</span>
+            <span>{{ options.weekDays['S'] }}</span>
+            <span>{{ options.weekDays['M'] }}</span>
+            <span>{{ options.weekDays['T'] }}</span>
+            <span>{{ options.weekDays['W'] }}</span>
+            <span>{{ options.weekDays['Th'] }}</span>
+            <span>{{ options.weekDays['F'] }}</span>
+            <span>{{ options.weekDays['Sa'] }}</span>
           </div>
           <div class="datepicker-calendar-days-container">
             <span class="day" *ngFor="let d of days; let i = index"
@@ -135,7 +140,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
         </div>
       </div>
     </div>
-  </div>
+  <!--</div>-->
   `,
   styles: [`
   .datepicker-container {
