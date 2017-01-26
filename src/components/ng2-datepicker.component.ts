@@ -125,7 +125,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
           <div class="datepicker-calendar-days-container">
             <span class="day" *ngFor="let d of days; let i = index"
                               (click)="selectDate($event, d.momentObj)"
-                              [ngClass]="{ 'disabled': !d.enabled, 'today': d.today, 'selected': d.momentObj.valueOf() === model }">
+                              [ngClass]="{ 'disabled': !d.enabled, 'today': d.today, 'selected': d.momentObj.valueOf() === model && d.enabled }">
               {{ d.day }}
             </span>
           </div>
@@ -318,7 +318,7 @@ export class DatePickerComponent implements ControlValueAccessor, OnInit {
   @Input() options: DatePickerOptions;
   @Input() model: number;
   @Input() inputEvents: EventEmitter<{ type: string, data: string | DateModel }>;
-  @Output() outputEvents: EventEmitter<{ type: string, data: string | DateModel }>;
+  @Output() outputEvents: EventEmitter<{ type: string, data: string | DateModel, init?: boolean }>;
 
   date: DateModel;
 
@@ -389,9 +389,9 @@ export class DatePickerComponent implements ControlValueAccessor, OnInit {
       gridWidth: '2'
     };
 
-    if (this.options.initialDate instanceof Date) {
-      this.currentDate = Moment(this.options.initialDate);
-      this.selectDate(null, this.currentDate);
+    if (this.options.initialDate instanceof Date || this.model) {
+      this.currentDate = Moment(new Date(this.model) || this.options.initialDate);
+      this.selectDate(null, this.currentDate, true);
     }
 
     if (this.options.minDate instanceof Date) {
@@ -498,7 +498,7 @@ export class DatePickerComponent implements ControlValueAccessor, OnInit {
     }
   }
 
-  selectDate(e: MouseEvent, date: moment.Moment) {
+  selectDate(e: MouseEvent, date: moment.Moment, init=false) {
     if (e) { e.preventDefault(); }
 
     setTimeout(() => {
@@ -511,7 +511,7 @@ export class DatePickerComponent implements ControlValueAccessor, OnInit {
       };
       this.generateCalendar();
 
-      this.outputEvents.emit({ type: 'dateChanged', data: this.value });
+      this.outputEvents.emit({ type: 'dateChanged', data: this.value, init: init });
     });
 
     if (this.options.autoApply === true && this.opened === true) {
