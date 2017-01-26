@@ -125,7 +125,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
           <div class="datepicker-calendar-days-container">
             <span class="day" *ngFor="let d of days; let i = index"
                               (click)="selectDate($event, d.momentObj)"
-                              [ngClass]="{ 'disabled': !d.enabled, 'today': d.today, 'selected': d.selected }">
+                              [ngClass]="{ 'disabled': !d.enabled, 'today': d.today, 'selected': d.momentObj.valueOf() === model }">
               {{ d.day }}
             </span>
           </div>
@@ -316,6 +316,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
 })
 export class DatePickerComponent implements ControlValueAccessor, OnInit {
   @Input() options: DatePickerOptions;
+  @Input() model: number;
   @Input() inputEvents: EventEmitter<{ type: string, data: string | DateModel }>;
   @Output() outputEvents: EventEmitter<{ type: string, data: string | DateModel }>;
 
